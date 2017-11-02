@@ -15,8 +15,8 @@
 
         if (
           $pdo_statement &&
-          $pdo_statement->bindParam(':title', $_POST['title']) &&
-          $pdo_statement->bindParam(':description', $_POST['description']) &&
+          $pdo_statement->bindParam(':title', htmlspecialchars($_POST['title'])) &&
+          $pdo_statement->bindParam(':description', htmlspecialchars($_POST['description'])) &&
           $pdo_statement->execute()
         ) {
           header('Location:index.php');
