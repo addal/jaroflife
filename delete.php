@@ -1,21 +1,12 @@
 <?php
 
-if (isset($_GET['id'])) {
-  $sql = 
-    'UPDATE todos ' .
-    'SET deleted_at=CURRENT_TIMESTAMP() ' .
-    'WHERE id=:id';
+require __DIR__.'/models/Todo.php';
 
-  require __DIR__.'/create-pdo.php';
+$location = 'index.php';
 
-  if (
-    !$pdo_statement ||
-    !$pdo_statement->bindParam(':id', $_GET['id'], PDO::PARAM_INT) ||
-    !$pdo_statement->execute()
-  ) {
-    header('Location:read.php?id=' . $_GET['id']);
-    exit;
-  }
+if (isset($_GET['id']) && !delete($_GET['id'])) {
+    $location = 'read.php?id=' . $_GET['id'];
 }
 
-header('Location:index.php');
+header('Location:' . $location);
+

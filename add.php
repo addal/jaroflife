@@ -1,48 +1,22 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Modifier...</title>
-  </head>
-  <body>
-    <?php
-      if (isset($_POST['title'], $_POST['description'])) {
-        $sql = 
-          'INSERT INTO todos (title, description)' .
-          'VALUES (:title, :description)';
+<?php
 
-        require __DIR__.'/create-pdo.php';
+require __DIR__.'/models/Todo.php';
 
-        if (
-          $pdo_statement &&
-          $pdo_statement->bindParam(':title', htmlspecialchars($_POST['title'])) &&
-          $pdo_statement->bindParam(':description', htmlspecialchars($_POST['description'])) &&
-          $pdo_statement->execute()
-        ) {
-          header('Location:index.php');
-          exit;
-        }
-      }
-    ?>
-    <form action="" method="post">
-      <div>
-        <label>
-          titre :
-          <input type="text" name="title" value="">
-        </label>
-      </div>
-      <div>
-        <label>
-          description :
-          <textarea name="description"></textarea>
-        </label>
-      </div>
-      <div>
-        <input type="submit" value="envoyer">
-      </div>
-    </form>
-    <ul>
-      <li><a href="index.php">retour à l'index</a></li>
-    </ul>
-  </body>
-</html>
+$title = '';
+$description = '';
+$message = 'Veuillez remplir les champs suivants.';
+
+if (isset($_POST['title'], $_POST['description'])) {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+
+    if (create($_POST)) {
+        header('Location:index.php');
+        exit;
+    } else {
+        $message = 'Une erreur est survenue pendant la création.';
+    }
+}
+
+require __DIR__.'/views/todos/add.php';
+
