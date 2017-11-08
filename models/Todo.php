@@ -2,8 +2,8 @@
 
 function create($values) {
     $sql =
-        'INSERT INTO todos (title, description)' .
-        'VALUES (:title, :description)';
+        'INSERT INTO todos (title, description, user_id)' .
+        'VALUES (:title, :description, :user_id)';
 
     $ok = false;
 
@@ -16,6 +16,9 @@ function create($values) {
         ) &&
         $pdo_statement->bindParam(
             ':description', htmlspecialchars($values['description'])
+        ) &&
+        $pdo_statement->bindParam(
+            ':user_id', htmlspecialchars($values['user_id'])
         ) &&
         $pdo_statement->execute()
     ) {
