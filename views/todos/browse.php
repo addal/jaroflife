@@ -5,6 +5,23 @@
     <title>Parcourir les todos</title>
   </head>
   <body>
+    <nav>
+      <ul>
+        <li>
+        <?php
+          if ($connected_user) {
+        ?>
+          <a href="logout.php">logout</a>
+        <?php
+          } else {
+        ?>
+          <a href="login.php">login</a>
+        <?php
+          }
+        ?>
+        </li>
+      </ul>
+    </nav>
     <h1>todo-list</h1>
     <ul>
     <?php

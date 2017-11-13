@@ -12,7 +12,7 @@ if (isset($_POST['title'], $_POST['description'])) {
     $user_id = 1;
 
     if (
-        create(
+        Todo::create(
             array(
                 'title' => $title,
                 'description' => $description,
